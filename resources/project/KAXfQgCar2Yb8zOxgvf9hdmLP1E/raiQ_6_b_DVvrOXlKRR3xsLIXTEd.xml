@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Info File="defineBuses.m" GroupUUID="default" Icon="" Name="defineBuses" Type="StartUp" Visible="0">
-    <Extension Name="StartUpPrev" Value="HEAD"/>
-</Info>
