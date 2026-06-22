@@ -3,29 +3,23 @@
 All notable changes to this project are recorded here.
 Tagged milestones correspond to recoverable Git states.
 
-## [Unreleased] — Phase 2 (toward v0.3)
+## [v0.3-baseline-loop] — 2026-06-23
 ### Added
-- Plant: linear single-track bicycle model (bicycleModel.m) in a MATLAB Function
-  block with external integrators; step-steer response verified (~0.31 rad/s).
-- Reference: understeer-based target yaw rate with friction limit (referenceGen.m);
-  steady-state 0.2972 rad/s, matches hand calculation.
-- Controller: PI via native PID block, gains from cfg, saturation + anti-windup;
-  first block to consume its bus inputs (RefBus + PlantBus -> error).
+- Plant: linear single-track bicycle model (bicycleModel.m); verified ~0.313 rad/s.
+- Reference: understeer target with friction limit (referenceGen.m); 0.2972 rad/s.
+- Controller: PI via native PID block, gains from cfg, saturation + anti-windup.
 - Allocator: baseline moment-to-torque split (allocateBaseline.m) with config-ladder
-  topology (RWD_single / RWD_twin / AWD_4); verified numerically for all three.
-- DriverBus interface contract (delta) added to defineBuses.m.
-- Manoeuvre generator (Manoeuvre.slx) producing step steer as a DriverBus.
-- Steering routing: single source feeds both Plant and Reference via DriverIn inports;
-  removed the temporary internal step-steers. Full closed loop is coherent and runs.
-### Pending for v0.3
-- Metric harness (metrics.m): IAE / RMSE / peak; log reference vs. actual yaw rate.
+  topology (RWD_single / RWD_twin / AWD_4); verified numerically.
+- DriverBus interface contract (delta); Manoeuvre generator (Manoeuvre.slx).
+- Single steering source feeds Plant + Reference; coherent closed loop.
+- Metric harness (metrics.m): RMSE / IAE / peak yaw-rate error + steady-state checks.
+- Phase 2 complete: thesis reproduced inside the modular platform. FIRST REAL SUMMIT.
 
 ## [v0.2-skeleton-runs] — 2026-06-21
 ### Added
 - Five Simulink.Bus interface contracts (defineBuses.m).
 - vehicleConfig.m single source of truth + startup_project.m loader.
 - Five modular referenced models wired into a closed-loop walking skeleton.
-- YawTV_4WD.slx simulates end-to-end. Phase 1 complete.
 
 ## [v0.1-skeleton] — 2026-06-21
 ### Added
