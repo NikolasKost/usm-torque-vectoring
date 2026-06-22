@@ -20,6 +20,10 @@ function defineBuses()
         'yawRateRef', 'Target yaw rate [rad/s]'; ...
         'vxRef',      'Target longitudinal speed [m/s]'});
 
+    % ----- 6. DriverBus : Manoeuvre -> Plant & Reference (driver inputs) -----
+    DriverBus = makeBus({ ...
+        'delta', 'Front road-wheel steer angle [rad]'});
+
     % ----- 2. CtrlBus : Controller -> Allocator (vehicle-level demand) -----
     CtrlBus = makeBus({ ...
         'MzDemand', 'Yaw moment demand [N*m]'; ...
@@ -50,6 +54,7 @@ function defineBuses()
 
     % ----- publish all buses to the base workspace -----
     assignin('base', 'RefBus',   RefBus);
+    assignin('base', 'DriverBus', DriverBus);
     assignin('base', 'CtrlBus',  CtrlBus);
     assignin('base', 'AllocBus', AllocBus);
     assignin('base', 'PwrBus',   PwrBus);
