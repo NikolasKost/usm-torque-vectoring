@@ -6,7 +6,7 @@ Seeded by my Year 4 yaw-control thesis; built to be incrementally extended
 by USM controls enthusiasts.
 
 ## Status
-Phase 0 complete (`v0.1-skeleton`): project under Git source control.
+('v0.4') on the works...
 
 ## Structure
 - MATLAB Project (`.prj`) manages paths and dependencies.
