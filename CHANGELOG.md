@@ -13,7 +13,7 @@ Tagged milestones correspond to recoverable Git states.
 - DriverBus interface contract (delta); Manoeuvre generator (Manoeuvre.slx).
 - Single steering source feeds Plant + Reference; coherent closed loop.
 - Metric harness (metrics.m): RMSE / IAE / peak yaw-rate error + steady-state checks.
-- Phase 2 complete: thesis reproduced inside the modular platform. FIRST REAL SUMMIT.
+- Phase 2 complete: thesis reproduced inside the modular platform.
 
 ## [v0.2-skeleton-runs] — 2026-06-21
 ### Added
