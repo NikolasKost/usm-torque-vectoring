@@ -25,3 +25,4 @@ Tagged milestones correspond to recoverable Git states.
 ### Added
 - MATLAB Project under Git; private GitHub repo; .gitignore/.gitattributes.
 - Long-path support and model auto-merge. Phase 0 complete.
+2026-06-23  Phase 3 step 14: double-track four-corner plant (per-corner slip + static Fz, zeroed Fx slot for step 16); PlantBus unchanged, reproduces v0.3 baseline (0.31286831 rad/s).
