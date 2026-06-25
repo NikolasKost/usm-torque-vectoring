@@ -1,4 +1,4 @@
-function [yawRate, vx_out, vy, ax, ay, beta, vy_dot, r_dot, Fz_fl, Fz_fr, Fz_rl, Fz_rr] = doubleTrackModel(delta, vy, r, p, ay_prev)
+function [yawRate, vx_out, vy, ax, ay, beta, vy_dot, r_dot, Fz_fl, Fz_fr, Fz_rl, Fz_rr] = doubleTrackModel(delta, vy, r, p, ay_prev, Tact_fl, Tact_fr, Tact_rl, Tact_rr)
 %DOUBLETRACKMODEL  Double-track (four-corner) lateral plant - Steps 14-16.
 %==========================================================================
 % PURPOSE
@@ -26,6 +26,7 @@ function [yawRate, vx_out, vy, ax, ay, beta, vy_dot, r_dot, Fz_fl, Fz_fr, Fz_rl,
     m   = p(1);   Iz  = p(2);   a = p(3);   b = p(4);
     Cf  = p(5);   Cr  = p(6);   vx = p(7);  tr = p(8);
     h   = p(9);   mu  = p(10);  g  = 9.81;
+    Rw  = p(11);  % wheel radius [m] - converts delivered torque to Fx
 % ---- PER-CORNER LINEAR CORNERING STIFFNESS (half the axle each) --------
     C_corner_f = Cf/2;   C_corner_r = Cr/2;
 % ---- PER-CORNER SLIP ANGLES (small-angle linear region) ----------------
@@ -46,11 +47,11 @@ function [yawRate, vx_out, vy, ax, ay, beta, vy_dot, r_dot, Fz_fl, Fz_fr, Fz_rl,
     Fy_rl = mf_tyre(alpha_r, Fz_rl, C_corner_r, C_shape, mu);
     Fy_rr = mf_tyre(alpha_r, Fz_rr, C_corner_r, C_shape, mu);
 % ---- LONGITUDINAL FORCES: still ZEROED (wired live in sub-step 16c) -----
-    Fx_fl = 0; Fx_fr = 0; Fx_rl = 0; Fx_rr = 0;
+    Fx_fl = Tact_fl/Rw;  Fx_fr = Tact_fr/Rw;  Fx_rl = Tact_rl/Rw;  Fx_rr = Tact_rr/Rw;
 % ---- EQUATIONS OF MOTION -----------------------------------------------
     Fy_tot = Fy_fl + Fy_fr + Fy_rl + Fy_rr;
     Mz = a*(Fy_fl + Fy_fr) - b*(Fy_rl + Fy_rr) ...
-       + (tr/2)*((Fx_fr + Fx_rr) - (Fx_fl + Fx_rl));   % long. term == 0 now
+       + (tr/2)*((Fx_fr + Fx_rr) - (Fx_fl + Fx_rl));   % long. term now LIVE (torque vectoring)
     vy_dot = Fy_tot/m - vx*r;
     r_dot  = Mz / Iz;
 % ---- OUTPUTS (PlantBus state + derivatives + per-corner Fz) -------------
